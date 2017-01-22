@@ -22,4 +22,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="cont">Continue</string>
+    <string name="swipe_to_confirm_action">Swipe to Confirm Action</string>
+    <string name="remountfs">Remount filesystem</string>
+    <string name="button">Button</string>
 </resources>

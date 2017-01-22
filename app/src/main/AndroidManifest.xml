@@ -25,6 +25,7 @@
             android:name=".FilesystemDetail"
             android:label="@string/title_activity_filesystem_detail"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FilesystemRemount"></activity>
     </application>
 
 </manifest>
