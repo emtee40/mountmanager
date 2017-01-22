@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fs_name" type="id">Filesystem:</item>
+    <item name="fs_readwrite" type="id">Writable:</item>
+    <item name="fs_mount" type="id">Mounted at:</item>
+    <item name="fs_type" type="id">Type:</item>
+    <item name="fs_options" type="id">Mount Options:</item>
+</resources>

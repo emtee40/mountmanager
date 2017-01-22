@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Mount Manager</string>
+    <string name="action_settings">Settings</string>
+    <string name="pref_previously_started">prev_start</string>
+    <string name="fr_warning">Warning!</string>
+    <string name="fr_text">Make sure you know what you\'re doing! I am not responsible for bricked devices, dead SD cards, thermonuclear war, or you getting fired because the alarm app failed. Please do some research if you don\'t know how linux filesystems work! YOU are choosing to run this app, and if you point the finger at me for messing up your device, I will laugh at you. This app requires a rooted device if you want to utilize the rw/ro toggle feature.</string>
+    <string name="okay">Okay</string>
+    <string name="title_activity_fs_detail_view">FsDetailViewActivity</string>
+    <string name="yeah">Yes</string>
+    <string name="nope">No</string>
+    <string name="fr_error">Error</string>
+    <string name="fr_noroot">Something sinister prevented listing the filesystems. Did you allow root access back there? If not, please do that. If your device is not rooted, do that first.</string>
+    <string name="title_activity_filesystem_detail">Filesystem Details</string>
+    <string name="yousurebruh">!!!WARNING!!!</string>
+    <string name="moresure">"Are you really sure you want to perform the following action: Remount "</string>
+    <string name="as">" as "</string>
+    <string name="readonly">" read-only (Mount option: ro). It is currently mounted as read-write (rw)"</string>
+    <string name="readwrite">" read-write (Mount option: rw). It is currently mounted as read-only (rw)"</string>
+    <string name="ohno">Cancel</string>
+
+    <string name="title_activity_filesystem_remount">FilesystemRemount</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="cont">Continue</string>
+</resources>
