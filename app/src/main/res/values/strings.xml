@@ -25,4 +25,11 @@
     <string name="swipe_to_confirm_action">Swipe to Confirm Action</string>
     <string name="remountfs">Remount filesystem</string>
     <string name="button">Button</string>
+    <string name="wasremounted">"Filesystem was remounted: "</string>
+    <string name="filesystem_being_remounted">Filesystem being remounted:</string>
+    <string name="filesystem_remounting">Remounting Filesystem</string>
+    <string name="warnin_boi">Warning!</string>
+    <string name="nukewars">"The filesystem you are trying to remount is not on our list of things people normally remount. This might just be us being your mom, but if you are not sure, you probably shouldn't do this. Actually, if you're not 420% sure you know what you're doing, PRESS THAT BACK BUTTON RIGHT NOW. Your phone could crash. Your phone could get bricked. You could get sued. Kittens might die. A climate change denier might become president of the USA. Oh shit that last part ALREADY HAPPENED, and if you do this without knowing, it would have been your fault. So there. "</string>
+    <string name="toro">From read-write to read-only</string>
+    <string name="torw">From read-only to read-write</string>
 </resources>

@@ -33,7 +33,7 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:text="@string/button"
+        android:text="@string/remountfs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/confirmbutton"
@@ -45,14 +45,72 @@
         android:clickable="false"
         android:layout_alignParentBottom="true" />
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/textView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_above="@+id/confirmbutton">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:text="@string/filesystem_remounting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                tools:ignore="HardcodedText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="@string/filesystem_being_remounted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textAlignment="center"
+
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:text="Say my name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fsremouning"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAlignment="center"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:text="Heisenberg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/roorrw"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                tools:ignore="HardcodedText"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="@string/warnin_boi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/warn1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <TextView
+                android:text="@string/nukewars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/warn2"
+                android:textAlignment="center" />
+            </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

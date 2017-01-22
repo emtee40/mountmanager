@@ -35,7 +35,7 @@ import java.util.List;
 public class FilesystemList extends AppCompatActivity {
 
     public static final String EXTRA_FSPOS = "org.sudoforlunch.mountmanager.FILESYSTEM_POSITION";
-    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
+    public static final String EXTRA_REFR = "org.sudoforlunch.mountmanager.REFRESH";
     private static final String END_OF_PROC_MOUNTS = "---END OF PROC MOUNTS---";
     private static final String PROC_MOUNTS = "/proc/mounts";
     private static final List<String> IGNORE_FS_DIRS = Arrays.asList(
@@ -143,6 +143,13 @@ public class FilesystemList extends AppCompatActivity {
             intent.putExtra(EXTRA_FSPOS, position);
             startActivity(intent);
         });
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.hasExtra(EXTRA_REFR)) {
+                Snackbar.make(fslistview, getResources().getString(R.string.wasremounted) + intent.getStringExtra(EXTRA_REFR), Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+            }
+        }
 
         try {
             populateFilesystems();
@@ -167,7 +174,7 @@ public class FilesystemList extends AppCompatActivity {
         if (!previouslyStarted) {
             SharedPreferences.Editor edit = prefs.edit();
             edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
-            edit.commit();
+            edit.apply();
             AlertDialog alertDialog = new AlertDialog.Builder(FilesystemList.this).create();
             alertDialog.setTitle(getResources().getString(R.string.fr_warning));
             alertDialog.setMessage(getResources().getString(R.string.fr_text));

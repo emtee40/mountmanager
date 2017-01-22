@@ -4,17 +4,22 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
+
+import static org.sudoforlunch.mountmanager.FilesystemList.DO_NOT_CALL_BATSHIT_INSANE_FS;
+
+
 public class FilesystemRemount extends AppCompatActivity {
 
     private Filesystem fs;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +65,49 @@ public class FilesystemRemount extends AppCompatActivity {
                     confirmbutton.setVisibility(TextView.VISIBLE);
                     seekBar.setVisibility(SeekBar.INVISIBLE);
                     confirmbutton.setEnabled(true);
-                    confirmbutton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
+                    confirmbutton.setOnClickListener(v -> {
+                        try {
+                            Process su = Runtime.getRuntime().exec("su");
+                            BufferedWriter mountswriter = new BufferedWriter(new OutputStreamWriter(su.getOutputStream()));
+                            mountswriter.write("su\n");
+                            mountswriter.write("mount -o remount,r" + (fs.isWritable() ? "o " : "w ") + fs.getMountpoint() +"\n");
+                            mountswriter.write("exit\n");
+                            mountswriter.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
+                        try {
+                            FilesystemList.populateFilesystems();
+                        } catch (ProcMountsReadException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(getApplicationContext(), FilesystemList.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra(FilesystemList.EXTRA_REFR, fs.getMountpoint());
+                        startActivity(intent);
                     });
                 }
 
             }
         });
+
+        setTitle(fs.getMountpoint());
+
+        TextView warn1 = (TextView) findViewById(R.id.warn1);
+        TextView warn2 = (TextView) findViewById(R.id.warn2);
+        TextView fsremounting = (TextView) findViewById(R.id.fsremouning);
+        TextView roorrw = (TextView) findViewById(R.id.roorrw);
+
+        for (String fsp: DO_NOT_CALL_BATSHIT_INSANE_FS){
+            if (fs.getMountpoint().startsWith(fsp)) {
+                warn1.setVisibility(TextView.INVISIBLE);
+                warn2.setVisibility(TextView.INVISIBLE);
+            }
+        }
+
+        fsremounting.setText(fs.getMountpoint());
+        roorrw.setText(fs.isWritable() ? getResources().getString(R.string.toro) : getResources().getString(R.string.torw));
+
     }
 
 
