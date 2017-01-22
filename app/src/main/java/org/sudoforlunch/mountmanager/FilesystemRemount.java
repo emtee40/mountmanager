@@ -2,6 +2,7 @@ package org.sudoforlunch.mountmanager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -75,6 +76,16 @@ public class FilesystemRemount extends AppCompatActivity {
                             mountswriter.flush();
                         } catch (IOException e) {
                             e.printStackTrace();
+                            AlertDialog alertDialog = new AlertDialog.Builder(FilesystemRemount.this).create();
+                            alertDialog.setTitle(getResources().getString(R.string.fr_error));
+                            alertDialog.setMessage(getResources().getString(R.string.fr_noroot));
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.okay),
+                                    (dialog, which) -> {
+                                        dialog.dismiss();
+                                        finish();
+                                    });
+                            alertDialog.setCancelable(false);
+                            alertDialog.show();
                         }
                         try {
                             FilesystemList.populateFilesystems();
