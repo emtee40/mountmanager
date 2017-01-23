@@ -17,7 +17,6 @@
     <string name="readonly">" read-only (Mount option: ro). It is currently mounted as read-write (rw)"</string>
     <string name="readwrite">" read-write (Mount option: rw). It is currently mounted as read-only (rw)"</string>
     <string name="ohno">Cancel</string>
-
     <string name="title_activity_filesystem_remount">FilesystemRemount</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -32,4 +31,47 @@
     <string name="nukewars">"The filesystem you are trying to remount is not on our list of things people normally remount. This might just be us being your mom, but if you are not sure, you probably shouldn't do this. Actually, if you're not 420% sure you know what you're doing, PRESS THAT BACK BUTTON RIGHT NOW. Your phone could crash. Your phone could get bricked. You could get sued. Kittens might die. A climate change denier might become president of the USA. Oh shit that last part ALREADY HAPPENED, and if you do this without knowing, it would have been your fault. So there. "</string>
     <string name="toro">From read-write to read-only</string>
     <string name="torw">From read-only to read-write</string>
+    <string name="about">About</string>
+    <string name="title_activity_about">About</string>
+    <string name="abouttext">
+        <![CDATA[
+<h1>Mount Manager</h1>
+<h5>Version BUILD_VERSION</h5>
+<h3>By Aditya Goturu</h3>
+<p><i>Remount filesystems as read-write or read-only.</i></p>
+<p><a href="https://github.com/aditya3098/mountmanager">https://github.com/aditya3098/mountmanager</a></p>
+<h4>Contact:</h4>
+<p><a href="mailto:aditya@sudoforlunch.org">aditya@sudoforlunch.org</a></p>
+<p><a href="https://www.sudoforlunch.org/">https://www.sudoforlunch.org/</a> (I really should update this more)</p>
+<h4>License:</h4>
+
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to &lt;http://unlicense.org/&gt;
+
+ ]]>
+    </string>
+
+
 </resources>

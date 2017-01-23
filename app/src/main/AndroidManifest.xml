@@ -19,13 +19,17 @@
             </intent-filter>
         </activity>
 
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
         <activity
             android:name=".FilesystemDetail"
             android:label="@string/title_activity_filesystem_detail"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FilesystemRemount"></activity>
+        <activity android:name=".FilesystemRemount" />
+        <activity
+            android:name=".About"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
