@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Mount Manager</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Toggle blacklist</string>
     <string name="pref_previously_started">prev_start</string>
     <string name="fr_warning">Warning!</string>
     <string name="fr_text">Make sure you know what you\'re doing! I am not responsible for bricked devices, dead SD cards, thermonuclear war, or you getting fired because the alarm app failed. Please do some research if you don\'t know how linux filesystems work! YOU are choosing to run this app, and if you point the finger at me for messing up your device, I will laugh at you. This app requires a rooted device if you want to utilize the rw/ro toggle feature.</string>
@@ -72,6 +72,13 @@ For more information, please refer to &lt;http://unlicense.org/&gt;
 
  ]]>
     </string>
+    <string name="blacklist_settings">Blacklist settings</string>
+    <string name="blEnabled">blEnabled</string>
+    <string name="blDisabled">Blacklist is disabled. All filesystems are visible.</string>
+    <string name="blMEnabled">Blacklist is currently enabled. Certain filesystems are blocked from this list.</string>
+    <string name="disablebutton">Disable</string>
+    <string name="enablebutton">Enable</string>
+    <string name="closebutton">Close</string>
 
 
 </resources>

@@ -18,8 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".FilesystemDetail"
             android:label="@string/title_activity_filesystem_detail"

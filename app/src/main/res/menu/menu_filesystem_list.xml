@@ -3,7 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.sudoforlunch.mountmanager.FilesystemList">
     <item
-        android:title="@string/about"
+        android:title="@string/action_settings"
         android:orderInCategory="101"
+        android:id="@+id/action_settings" />
+    <item
+        android:title="@string/about"
+        android:orderInCategory="102"
         android:id="@+id/action_about" />
 </menu>

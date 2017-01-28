@@ -1,32 +1,21 @@
 package org.sudoforlunch.mountmanager;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -39,6 +28,13 @@ public class FilesystemList extends AppCompatActivity {
 
     public static final String EXTRA_FSPOS = "org.sudoforlunch.mountmanager.FILESYSTEM_POSITION";
     public static final String EXTRA_REFR = "org.sudoforlunch.mountmanager.REFRESH";
+    public static final List<String> DO_NOT_CALL_BATSHIT_INSANE_FS = Arrays.asList(
+            "/system",
+            "/mnt",
+            "/storage",
+            "/storage",
+            "/cache"
+    );
     private static final String END_OF_PROC_MOUNTS = "---END OF PROC MOUNTS---";
     private static final String PROC_MOUNTS = "/proc/mounts";
     private static final List<String> IGNORE_FS_DIRS = Arrays.asList(
@@ -50,17 +46,10 @@ public class FilesystemList extends AppCompatActivity {
             "tmpfs",
             "sysfs"
     );
-    public static final List<String> DO_NOT_CALL_BATSHIT_INSANE_FS = Arrays.asList(
-            "/system",
-            "/mnt",
-            "/storage",
-            "/storage",
-            "/cache"
-    );
     public static ArrayList<Filesystem> fslist = new ArrayList<>();
-    private static FilesystemAdapter adp;
+    public static FilesystemAdapter adp;
 
-    public static void populateFilesystems() throws ProcMountsReadException {
+    protected static void populateFilesystems(boolean blEnabled) throws ProcMountsReadException {
         try {
 
             System.out.flush();
@@ -83,7 +72,7 @@ public class FilesystemList extends AppCompatActivity {
 
                 try {
                     Filesystem sys = new Filesystem(piece);
-                    if (fsIsBlacklisted(sys)) continue;
+                    if (fsIsBlacklisted(sys, blEnabled)) continue;
                     fslist.add(sys);
                     adp.notifyDataSetChanged();
                 } catch (InvalidMountLineException e) {
@@ -99,11 +88,13 @@ public class FilesystemList extends AppCompatActivity {
         }
     }
 
-    private static boolean fsIsBlacklisted(Filesystem sys) {
+    private static boolean fsIsBlacklisted(Filesystem sys, boolean blEnabled) {
+        if (!blEnabled) return false;
         if (IGNORE_FS_PATHS.contains((sys.getFilesystem()))) return true;
         for (String dir : IGNORE_FS_DIRS) if (sys.getMountpoint().startsWith(dir)) return true;
         return false;
     }
+
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -116,7 +107,9 @@ public class FilesystemList extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             try {
-                populateFilesystems();
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                boolean blEnabled = prefs.getBoolean(getString(R.string.blEnabled), true);
+                populateFilesystems(blEnabled);
                 Snackbar.make(view, "Refreshed!", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
 
@@ -154,9 +147,10 @@ public class FilesystemList extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         }
-
         try {
-            populateFilesystems();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            boolean blEnabled = prefs.getBoolean(getString(R.string.blEnabled), true);
+            populateFilesystems(blEnabled);
 
 
         } catch (ProcMountsReadException e) {
@@ -182,10 +176,7 @@ public class FilesystemList extends AppCompatActivity {
             AlertDialog alertDialog = new AlertDialog.Builder(FilesystemList.this).create();
             alertDialog.setTitle(getResources().getString(R.string.fr_warning));
             alertDialog.setMessage(getResources().getString(R.string.fr_text));
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.okay),
-                    (dialog, which) -> {
-                        dialog.dismiss();
-                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.okay), (dialog, which) -> dialog.dismiss());
             alertDialog.show();
         }
 
@@ -200,10 +191,29 @@ public class FilesystemList extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_about:
                 startActivity(new Intent(getApplicationContext(), About.class));
+                return true;
+            case R.id.action_settings:
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                boolean blEnabled = prefs.getBoolean(getString(R.string.blEnabled), true);
+                AlertDialog alertDialog = new AlertDialog.Builder(FilesystemList.this).create();
+                alertDialog.setTitle(getString(R.string.blacklist_settings));
+                alertDialog.setMessage(blEnabled ? getString(R.string.blMEnabled) : getString(R.string.blDisabled));
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, blEnabled ? getString(R.string.disablebutton) : getString(R.string.enablebutton), (dialog, which) -> {
+                    SharedPreferences.Editor edit = prefs.edit();
+                    edit.putBoolean(getString(R.string.blEnabled), !blEnabled);
+                    edit.apply();
+                    try {
+                        populateFilesystems(!blEnabled);
+                    } catch (ProcMountsReadException e) {
+                        e.printStackTrace();
+                    }
+                    dialog.dismiss();
+                });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.closebutton), (dialog, which) -> dialog.dismiss());
+                alertDialog.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

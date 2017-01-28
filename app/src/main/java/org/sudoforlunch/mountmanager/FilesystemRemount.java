@@ -2,6 +2,8 @@ package org.sudoforlunch.mountmanager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -88,7 +90,9 @@ public class FilesystemRemount extends AppCompatActivity {
                             alertDialog.show();
                         }
                         try {
-                            FilesystemList.populateFilesystems();
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                            boolean blEnabled = prefs.getBoolean(getString(R.string.blEnabled), true);
+                            FilesystemList.populateFilesystems(blEnabled);
                         } catch (ProcMountsReadException e) {
                             e.printStackTrace();
                         }
